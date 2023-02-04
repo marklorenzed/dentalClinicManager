@@ -4,17 +4,19 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { HiBookOpen, HiX } from "react-icons/hi";
 import { signOut, useSession } from "next-auth/react";
 
-interface NavbarProps {}
+interface NavbarProps {
+  className: string;
+}
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Navbar: FC<NavbarProps> = ({}) => {
+const Navbar: FC<NavbarProps> = ({ className }) => {
   const { data: sessionData } = useSession();
 
   return (
-    <Disclosure as="nav" className="h-16 bg-gray-800">
+    <Disclosure as="nav" className={`h-16 bg-gray-800 ${className}`}>
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -102,7 +104,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
                                 active ? "bg-gray-100" : "",
                                 "block w-full px-4 py-2 text-left text-sm text-gray-700"
                               )}
-                              onClick={() => signOut()}
+                              onClick={() => void signOut()}
                             >
                               Sign out
                             </button>
