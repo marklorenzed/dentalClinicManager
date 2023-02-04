@@ -44,13 +44,22 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(auto()) @map("_id") @db.ObjectId
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
+    id             String       @id @default(auto()) @map("_id") @db.ObjectId
+    name           String?
+    email          String?      @unique
+    emailVerified  DateTime?
+    image          String?
+    organization   Organization @relation(references: [id], onDelete: Cascade, fields: [organizationId])
+    accounts       Account[]
+    sessions       Session[]
+    organizationId String       @db.ObjectId
+}
+
+model Organization {
+    id       String @id @default(auto()) @map("_id") @db.ObjectId
+    name     String
+    location String
+    admin    User[]
 }
 
 model Doctor {
