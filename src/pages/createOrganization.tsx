@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { api } from "../utils/api";
 
-const CreateOrganizationForm = (props) => {
+const CreateOrganizationForm = () => {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const router = useRouter();
@@ -10,7 +10,7 @@ const CreateOrganizationForm = (props) => {
   const { mutate } = api.user.createOrganization.useMutation({
     onSuccess(organization) {
       console.log(organization);
-      router.push("/");
+      void router.push("/");
     },
   });
 
